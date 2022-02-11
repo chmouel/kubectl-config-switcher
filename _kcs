@@ -1,0 +1,5 @@
+#compdef kcs
+
+_arguments "1: :(${(Q)$(_kcs_list_profiles)})"
+
+# vim: ft=zsh

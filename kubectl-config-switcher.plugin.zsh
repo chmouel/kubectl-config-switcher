@@ -1,0 +1,62 @@
+#!/usr/bin/env zsh -f
+# compdef '_arguments "1: :(${(Q)$(_kcs_list_profiles)})"' kcs
+
+KCS_DIR="${HOME}/.kube"
+
+function _kcs_set_kubeconfig() {
+    local profile=${1}
+    export KCS_PROFILE=${profile}
+    local profilefile=${KCS_DIR}/config.${profile}
+    local color=${KCS_DEFAULT_PROMPT_COLOR}
+    local ns_color=${KCS_DEFAULT_NS_PROMPT_COLOR}
+
+    [[ -e ${profilefile} ]] || {
+        echo "I could not find the file ${profilefile}"
+        return 1
+    }
+
+    [[ -e ${profilefile}.kcs.pre ]] && {
+        source ${profilefile}.kcs.pre
+    }
+
+   # we do  this so we automatically  get it as the last one when listing with fzf
+    touch ${KUBECONFIG}
+}
+
+function _kcs_list_profiles() {
+    local profile
+    set -A profiles $(=ls -td $HOME/.kube/config.*)
+    for file in ${profiles};do
+        profile=${file#*/config.}
+        [[ -z ${profile} ]] && continue
+        echo ${profile[@]}
+    done
+}
+
+function _kcs_usage() {
+    cat <<EOF
+Usage: kcs [profile]
+
+-l list profiles
+EOF
+}
+
+function kcs () {
+    while getopts 'l' arg;do
+        case $arg in
+            (l)
+                _kcs_list_profiles;
+                return 0;;
+            (*)
+                _kcs_usage;
+                return 1;;
+        esac
+    done
+    shift $(( OPTIND - 1 ))
+    profile=${1}
+    [[ -z ${profile} ]] &&  {
+        profile=$(_kcs_list_profiles | fzf --history=${HOME}/.kube/.kcs.history -1)
+    }
+    [[ -n ${profile} ]] && _kcs_set_kubeconfig ${profile}
+    (( $+commands[completion] )) && ocompletion
+}
