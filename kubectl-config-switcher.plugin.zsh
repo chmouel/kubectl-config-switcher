@@ -5,7 +5,6 @@ KCS_DIR="${HOME}/.kube"
 
 function _kcs_set_kubeconfig() {
     local profile=${1}
-    export KCS_PROFILE=${profile}
     local profilefile=${KCS_DIR}/config.${profile}
     local color=${KCS_DEFAULT_PROMPT_COLOR}
     local ns_color=${KCS_DEFAULT_NS_PROMPT_COLOR}
@@ -19,7 +18,7 @@ function _kcs_set_kubeconfig() {
         source ${profilefile}.kcs.pre
     }
 
-   # we do  this so we automatically  get it as the last one when listing with fzf
+    export KUBECONFIG=${profilefile}
     touch ${KUBECONFIG}
 }
 
