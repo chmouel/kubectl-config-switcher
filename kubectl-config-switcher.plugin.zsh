@@ -5,6 +5,7 @@ KCS_DIR="${HOME}/.kube"
 
 function _kcs_set_kubeconfig() {
     local profile=${1}
+    export KCS_PROFILE=${profile}
     local profilefile=${KCS_DIR}/config.${profile}
     local color=${KCS_DEFAULT_PROMPT_COLOR}
     local ns_color=${KCS_DEFAULT_NS_PROMPT_COLOR}
