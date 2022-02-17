@@ -25,7 +25,7 @@ kubectl-config-switch (kcs) help you moving between them with fzf. The last used
 
 ## Powerlevel10k Integration
 
-the `KCS_PROFILE` env variable is exported so you can show it nicely in your prompt, for example with powerlevel9/10k : 
+the `KCS_PROFILE` env variable is exported so you can show it nicely in your prompt, for example with powerlevel9/10k add this to your configuration : 
 
 ```shell
   typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_CONTENT_EXPANSION='%F{13}${${${:-$KCS_PROFILE}:-$P9K_KUBECONTEXT_CLUSTER}}%f'
