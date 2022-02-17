@@ -1,4 +1,4 @@
-# Kubectl Config Switch (kcs)
+# Kubectl Config Switcher (kcs)
 
 A zsh plugin to switch via KUBECONFIG env variable between kubectl config files located in `~/.kube/`
 
