@@ -1,6 +1,8 @@
 # kubectl-config-switcher
 
-A zsh plugin to switch via KUBECONFIG env variable between kubectl config files located in ~/.kube/
+A zsh plugin to switch via KUBECONFIG env variable between kubectl config files located in `~/.kube/`
+
+<img width="504" alt="image" src="https://user-images.githubusercontent.com/98980/154470753-36c17566-d813-4826-ae28-f65683aeb0ec.png">
 
 
 ### Description
@@ -18,6 +20,7 @@ kubectl-config-switch (kcs) help you moving between them with fzf. The last used
 
 * fzf
 * kubectl
+* some kubernetes config files in `~/.kube` named as `~/.kube/config.${PROFILE_NAME}`
 
 ## Powerlevel10k Integration
 
@@ -28,3 +31,6 @@ the `KCS_PROFILE` env variable is exported so you can show it nicely in your pro
   POWERLEVEL9K_KUBECONTEXT_DEFAULT_CONTENT_EXPANSION+='/%F{3}${${:-$P9K_KUBECONTEXT_NAMESPACE}:-default}%f'
 ```
 
+it will look like this :
+
+<img width="606" alt="image" src="https://user-images.githubusercontent.com/98980/154470505-876e4e1f-f711-4d7e-afc9-21de99f3e551.png">
