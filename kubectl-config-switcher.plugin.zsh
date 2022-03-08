@@ -33,20 +33,30 @@ function _kcs_list_profiles() {
     done
 }
 
+function _kcs_set_last_profile() {
+    local _files=(~/.kube/config.*(Om));
+    export KUBECONFIG=${_files[-1]}
+}
+
 function _kcs_usage() {
     cat <<EOF
 Usage: kcs [profile]
 
--l list profiles
+-L list profiles
+-L Set to last profile
 EOF
 }
 
 function kcs () {
-    while getopts 'l' arg;do
+    while getopts 'Ll' arg;do
         case $arg in
             (l)
                 _kcs_list_profiles;
                 return 0;;
+            (L)
+                _kcs_set_last_profile;
+                return 0;;
+
             (*)
                 _kcs_usage;
                 return 1;;

@@ -16,6 +16,7 @@ kubectl-config-switch (kcs) help you moving between them with fzf. The last used
 * Load the plugin with your favourite zsh plugin manager or simply source the [kubectl-config-switcher.plugin.zsh](./kubectl-config-switcher.plugin.zsh) file
 * use the `kcs` command and it will ask which profile to choose with `fzf`
 * you can do a `kcs -l` to simply just list the profiles
+* you can do a `kcs -L` to set it to the last kubeconfig that was chosen previously.
 
 ## Requirement
 
