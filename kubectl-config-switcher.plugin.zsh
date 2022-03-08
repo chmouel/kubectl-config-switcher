@@ -25,7 +25,7 @@ function _kcs_set_kubeconfig() {
 
 function _kcs_list_profiles() {
     local _profiles=($HOME/.kube/config.*(Om));
-    for file in ${_profiles};do
+    for file in ${(Oa)_profiles};do
         profile=${file#*/config.}
         [[ -z ${profile} ]] && continue
         echo ${profile[@]}
