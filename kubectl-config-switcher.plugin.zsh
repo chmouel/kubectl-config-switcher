@@ -24,8 +24,7 @@ function _kcs_set_kubeconfig() {
 }
 
 function _kcs_list_profiles() {
-    local profile
-    set -A profiles $(=ls -td $HOME/.kube/config.*)
+    local _profiles=($HOME/.kube/config.*(Om));
     for file in ${profiles};do
         profile=${file#*/config.}
         [[ -z ${profile} ]] && continue
@@ -34,8 +33,10 @@ function _kcs_list_profiles() {
 }
 
 function _kcs_set_last_profile() {
-    local _files=(~/.kube/config.*(Om));
-    export KUBECONFIG=${_files[-1]}
+    local _files=($HOME/.kube/config.*(Om));
+    local file=${_files[-1]}
+    echo "Setting kubeconfig profile to ${file#*/config.}"
+    export KUBECONFIG=${file}
 }
 
 function _kcs_usage() {
