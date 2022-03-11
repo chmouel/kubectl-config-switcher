@@ -36,7 +36,7 @@ function _kcs_set_last_profile() {
     local _files=($HOME/.kube/config.*(Om));
     local file=${_files[-1]}
     echo "Setting kubeconfig profile to ${file#*/config.}"
-    export KUBECONFIG=${file}
+    _kcs_set_kubeconfig ${file#*/config.}
 }
 
 function _kcs_usage() {
