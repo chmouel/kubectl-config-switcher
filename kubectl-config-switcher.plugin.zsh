@@ -69,5 +69,4 @@ function kcs () {
         profile=$(_kcs_list_profiles | fzf --history=${HOME}/.kube/.kcs.history -1)
     }
     [[ -n ${profile} ]] && _kcs_set_kubeconfig ${profile}
-    (( $+commands[completion] )) && ocompletion
 }
