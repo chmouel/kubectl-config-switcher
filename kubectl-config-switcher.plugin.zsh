@@ -39,18 +39,31 @@ function _kcs_set_last_profile() {
     _kcs_set_kubeconfig ${file#*/config.}
 }
 
+function _kcs_print_current_kubeconfig_path() {
+    local _files=($HOME/.kube/config.*(Om));
+    local file=${_files[-1]}
+    local p=${file#*/config.}
+    [[ -z "${p}" ]] && return
+    local profilefile=${KCS_DIR}/config.${p}
+    echo ${profilefile}
+}
+
 function _kcs_usage() {
     cat <<EOF
 Usage: kcs [profile]
 
 -L list profiles
--L Set to last profile
+-L set to last profile
+-p print current profile kubeconfig path
 EOF
 }
 
 function kcs () {
-    while getopts 'Ll' arg;do
+    while getopts 'Llp' arg;do
         case $arg in
+            (p) 
+              _kcs_print_current_kubeconfig_path;
+              return 0;;
             (l)
                 _kcs_list_profiles;
                 return 0;;
